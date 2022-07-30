@@ -1,5 +1,6 @@
 import express from 'express'
 import dotenv from 'dotenv'
+import userRouter from './routes/userRoutes.js'
 
 dotenv.config()
 
@@ -9,6 +10,12 @@ const app = express()
 app.get('/', (req, res) => {
     res.status(200).send('Welcome to the Tech Support API')
 })
+
+// register routes
+app.use('/api/users', userRouter)
+//app.use('/api/users', require('./routes/userRoutes.js'))
+
+
 
 
 

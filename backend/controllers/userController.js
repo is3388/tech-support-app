@@ -64,6 +64,19 @@ const loginUser = asyncHandler(async (req, res) => {
     }
 })
 
-export {registerUser, loginUser}
+// @desc     Get user profile
+// @route    /api/users/profile
+// @access   Private
+const getProfile = asyncHandler(async (req, res) => {
+    // since go through auth function, we can access req.user
+    const user = { 
+        id: req.user._id,
+        name: req.user.name,
+        email: req.user.email
+    }
+    res.status(200).json(user)
+})
+
+export {registerUser, loginUser, getProfile}
 // common JS syntax
-//module.exports = {registerUser, loginUser}
+//module.exports = {registerUser, loginUser, getProfile}

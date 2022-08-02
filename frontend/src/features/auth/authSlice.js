@@ -1,7 +1,11 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
+import authService from './authService'
+
+// get user from local storage
+const user = JSON.parse(localStorage.getItem('user'))
 
 const initialState = {
-    user: null,
+    user: user ? user : null,
     error: false,
     success: false,
     loading: false,
@@ -10,25 +14,68 @@ const initialState = {
 
 // create an asyncthunk function to use async data
 export const register = createAsyncThunk(
-    'auth/register', 
+    'auth/register', //first argument is like action type
     async(user, thunkAPI) => {
-        console.log(user)
+        //console.log(user)
+        try {
+                return await authService.register(user)
+        }
+        catch (error) {
+            // error from backend and set to global state message
+            const message = (error.response && error.response.data && error.response.data.message) ||
+            error.message || error.toString()
+            return thunkAPI.rejectWithValue(message) // message will pass to register.rejected's action.payload
+        }
     })
 
-export const login = createAsyncThunk(
-        'auth/login', 
+    export const login = createAsyncThunk(
+        'auth/login', //first argument is like action type
         async(user, thunkAPI) => {
-            console.log(user)
+            //console.log(user)
+            try {
+                    return await authService.login(user)
+            }
+            catch (error) {
+                // error from backend and set to global state message
+                const message = (error.response && error.response.data && error.response.data.message) ||
+                error.message || error.toString()
+                return thunkAPI.rejectWithValue(message) // message will pass to register.rejected's action.payload
+            }
         })
 
 export const authSlice = createSlice({
     name: 'auth',
     initialState,
-    reducers: {},
+    reducers: {
+        // Action creator-resetting state 
+        // to default gets called in useEffect in the Register.js
+        reset: (state) => {
+            state.loading = false;
+            state.success = false;
+            state.error = false;
+            state.message = '';
+        }
+    },
     // function takes in builder that allow to add cases such as register pending/fulfill to change state
     extraReducers:(builder) => {
-
+        builder
+        .addCase(register.pending, (state) => {
+            state.loading = true
+        })
+        .addCase(register.fulfilled, (state, action) => {
+            state.loading = false
+            state.success = true
+            state.user = action.payload
+        })
+        .addCase(register.rejected, (state, action) => {
+            state.loading = false
+            state.success = false
+            state.error = true
+            state.user = null
+            state.message = action.payload
+        })
     }
 })
 
+export const {reset} = authSlice.actions
 export default authSlice.reducer

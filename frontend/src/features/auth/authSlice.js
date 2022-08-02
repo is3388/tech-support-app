@@ -1,4 +1,4 @@
-import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
+import {createSlice, createAsyncThunk, createAction} from '@reduxjs/toolkit'
 import authService from './authService'
 
 // get user from local storage
@@ -43,6 +43,17 @@ export const register = createAsyncThunk(
             }
         })
 
+    /*export const logout = createAsyncThunk(
+        'auth/logout',
+        async() => {
+            await authService.logout()
+        }
+    ) */
+    export const logout = createAction("auth/logout", () => {
+        authService.logout();
+        return {};
+      });
+
 export const authSlice = createSlice({
     name: 'auth',
     initialState,
@@ -54,7 +65,10 @@ export const authSlice = createSlice({
             state.success = false;
             state.error = false;
             state.message = '';
-        }
+        },
+        //logout: state => {
+            //state.user = null
+          //}
     },
     // function takes in builder that allow to add cases such as register pending/fulfill to change state
     extraReducers:(builder) => {
@@ -74,6 +88,12 @@ export const authSlice = createSlice({
             state.user = null
             state.message = action.payload
         })
+        //.addCase(logout.fulfilled, (state) => {
+            //state.user = null
+        //})
+        .addCase(logout, (state) => {
+            state.user = null;
+          })
     }
 })
 

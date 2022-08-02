@@ -4,6 +4,7 @@ import {useNavigate} from 'react-router-dom'
 import {register, reset} from '../features/auth/authSlice'
 import {FaUser} from 'react-icons/fa'
 import {toast} from 'react-toastify'
+import Spinner from '../components/Spinner'
 
 function Register () {
     const [formData, setFormData] = useState({
@@ -50,6 +51,9 @@ function Register () {
         }
     }
 
+    if (loading) {
+        return <Spinner />
+    }
     return (
         <>
         <section className='heading'>

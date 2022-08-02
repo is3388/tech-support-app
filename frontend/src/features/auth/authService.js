@@ -14,7 +14,7 @@ const register = async (userData) => {
 
 // login user
 const login = async (userData) => {
-    const response = await axios.post(`baseURL/login`, userData)
+    const response = await axios.post(`${baseURL}/login`, userData)
     if (response.data) {
     // save user data and token to local storage
     localStorage.setItem('user', JSON.stringify(response.data))

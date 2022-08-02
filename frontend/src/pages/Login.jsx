@@ -4,6 +4,7 @@ import {useNavigate} from 'react-router-dom'
 import {login, reset} from '../features/auth/authSlice'
 import {FaSignInAlt} from 'react-icons/fa'
 import {toast} from 'react-toastify'
+import Spinner from '../components/Spinner'
 
 function Login () {
     const [formData, setFormData] = useState({
@@ -44,6 +45,9 @@ function Login () {
        
     }
 
+    if (loading) {
+        return <Spinner />
+    }
     return (
         <>
         <section className='heading'>

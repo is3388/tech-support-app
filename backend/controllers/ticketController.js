@@ -6,8 +6,21 @@ import Ticket from '../models/ticketModel.js'
 // @route    POST /api/tickets
 // @access   Private
 const createTicket = asyncHandler(async (req, res) => {
-    // since go through auth function, we can access req.user
-    res.status(200).json({message: 'create ticket'})
+    const {product, description} = req.body
+    if (!product || !description) {
+        res.status(400)
+        throw new Error('Product and description must be included')
+    }
+    // since go through auth function, we can access req.user and no query to get the user again
+    
+    // create a ticket    
+    const ticket = await Ticket.create({
+        product, 
+        description,
+        user: req.user.id,
+        status: 'new'
+    })
+    res.status(201).json(ticket)
 })
 
 // @desc     Get user's tickets
@@ -15,7 +28,9 @@ const createTicket = asyncHandler(async (req, res) => {
 // @access   Private
 const getTickets = asyncHandler(async (req, res) => {
     // since go through auth function, we can access req.user
-    res.status(200).json({message: 'get tickets'})
+    
+    const tickets = await Ticket.find({user: req.user.id})
+    res.status(200).json(tickets)
 })
 
 export {getTickets, createTicket}

@@ -2,6 +2,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import connectDB from './config/db.js'
 import userRouter from './routes/userRoutes.js'
+import ticketRouter from './routes/ticketRoutes.js'
 import {errorHandler} from './middleware/errorMiddleware.js'
 
 dotenv.config()
@@ -24,6 +25,7 @@ app.get('/', (req, res) => {
 // register routes
 app.use('/api/users', userRouter)
 //app.use('/api/users', require('./routes/userRoutes.js'))
+app.use('/api/tickets', ticketRouter)
 
 app.use(errorHandler)
 

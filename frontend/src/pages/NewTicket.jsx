@@ -4,6 +4,7 @@ import {useNavigate} from 'react-router-dom'
 import {toast} from 'react-toastify'
 import {createTicket, reset} from '../features/tickets/ticketSlice'
 import Spinner from '../components/Spinner'
+import BackButton from '../components/BackButton'
 
 function NewTicket () {
 
@@ -34,6 +35,7 @@ function NewTicket () {
     }
     return loading ? <Spinner /> : (
         <>
+        <BackButton url='/' />
         <section className='heading'>
             <h3>Create New Ticket</h3>
             <p>Fill out the form below</p>

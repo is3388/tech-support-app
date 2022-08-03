@@ -1,5 +1,9 @@
-import {useState} from 'react'
-import {useSelector} from 'react-redux'
+import {useState, useEffect} from 'react'
+import {useSelector, useDispatch} from 'react-redux'
+import {useNavigate} from 'react-router-dom'
+import {toast} from 'react-toastify'
+import {createTicket, reset} from '../features/tickets/ticketSlice'
+import Spinner from '../components/Spinner'
 
 function NewTicket () {
 
@@ -8,11 +12,27 @@ function NewTicket () {
     const [email] = useState(user.email)
     const [product, setProduct] = useState('iPhone')
     const [description, setDescription] = useState('The problem is ...')
+    const {loading, error, success, message} = useSelector((state) => state.ticket)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (error) {
+            toast.error(message)
+        }
+        if (success) {
+            dispatch(reset())
+            navigate('/tickets')
+        }
+        dispatch(reset())
+    }, [dispatch, navigate, error, success, message])
 
     const onSubmit = (e) => {
         e.preventDefault()
+        // dispatch action that ticketService handle
+        dispatch(createTicket({product, description}))
     }
-    return (
+    return loading ? <Spinner /> : (
         <>
         <section className='heading'>
             <h3>Create New Ticket</h3>

@@ -9,7 +9,7 @@ function Home () {
                 What problem do you need help with?
             </h3>
             <p>
-                Please choose from an option below:
+                Please choose the following options:
             </p>
         </section>
         <Link to='/new-ticket' className='btn btn-reverse btn-block'>

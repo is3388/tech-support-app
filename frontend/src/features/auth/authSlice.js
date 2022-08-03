@@ -12,7 +12,7 @@ const initialState = {
     message: ''
 }
 
-// create an asyncthunk function to use async data
+// create an asyncthunk function to use async data and thunkAPI is asyncthunk's method
 export const register = createAsyncThunk(
     'auth/register', //first argument is like action type
     async(user, thunkAPI) => {
@@ -50,16 +50,18 @@ export const register = createAsyncThunk(
         }
     ) */
     export const logout = createAction("auth/logout", () => {
-        authService.logout();
-        return {};
-      });
+        authService.logout()
+        return {}
+      })
 
 export const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
         // Action creator-resetting state 
-        // to default gets called in useEffect in the Register.js
+        // to default gets called in useEffect in the Register.
+        // since reset doesn't have pending, fulfilled, rejected, put it here
+        // do not reset state.user = null unless logout. It depends on prevState
         reset: (state) => {
             state.loading = false;
             state.success = false;
@@ -70,7 +72,7 @@ export const authSlice = createSlice({
             //state.user = null
           //}
     },
-    // function takes in builder that allow to add cases such as register pending/fulfill to change state
+    // function takes in builder that allow to add cases/action typesuch as register pending/fulfill to change state
     extraReducers:(builder) => {
         builder
         .addCase(register.pending, (state) => {
@@ -95,7 +97,7 @@ export const authSlice = createSlice({
         .addCase(logout, (state) => {
             state.user = null;
           })
-          .addCase(login.pending, (state) => {
+        .addCase(login.pending, (state) => {
             state.loading = true
         })
         .addCase(login.fulfilled, (state, action) => {

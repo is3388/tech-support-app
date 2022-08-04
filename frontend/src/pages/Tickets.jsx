@@ -8,10 +8,11 @@ import TicketItem from '../components/TicketItem'
 
 function Tickets () {
     const {user} = useSelector((state) => state.auth)
-    const {tickets, loading, success, error, message} = useSelector((state) => state.ticket)
+    const {tickets, loading, success} = useSelector((state) => state.ticket)
     const dispatch = useDispatch()
 
     useEffect(() => {
+        
         if (!success) dispatch(getTickets())
         return () => {
           if (success) dispatch(reset())
@@ -38,7 +39,7 @@ function Tickets () {
                                 ))
                                 }
                                 <Link onClick={() => dispatch(reset())}
-                                      to='/new-ticket'
+                                      to='/tickets/new'
                                       className='btn btn-reverse btn-block'
                                 >
                                     Create New Ticket

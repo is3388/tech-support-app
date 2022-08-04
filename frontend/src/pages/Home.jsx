@@ -12,7 +12,7 @@ function Home () {
                 Please choose the following options:
             </p>
         </section>
-        <Link to='/new-ticket' className='btn btn-reverse btn-block'>
+        <Link to='/tickets/new' className='btn btn-reverse btn-block'>
             <FaQuestionCircle />Create New Ticket
         </Link>
         <Link to='/tickets' className='btn btn-block'>

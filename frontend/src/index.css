@@ -188,6 +188,7 @@ h3 {
 .btn-back {
   width: 150px;
   margin-bottom: 20px;
+  background: #f4f4f4;
 }
 
 .btn:hover {

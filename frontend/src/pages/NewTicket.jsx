@@ -12,7 +12,7 @@ function NewTicket () {
     const [name] = useState(user.name)
     const [email] = useState(user.email)
     const [product, setProduct] = useState('iPhone')
-    const [description, setDescription] = useState('The problem is ...')
+    const [description, setDescription] = useState('')
     const {loading, error, success, message} = useSelector((state) => state.ticket)
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -21,12 +21,12 @@ function NewTicket () {
         if (error) {
             toast.error(message)
         }
-        if (success) {
+        if (success && user) {
             dispatch(reset())
             navigate('/tickets')
         }
         dispatch(reset())
-    }, [dispatch, navigate, error, success, message])
+    }, [dispatch, navigate, error, success, message, user])
 
     const onSubmit = (e) => {
         e.preventDefault()

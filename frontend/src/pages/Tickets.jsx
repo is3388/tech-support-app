@@ -13,7 +13,7 @@ function Tickets () {
 
     /*useEffect(() => {
         
-        if (!success) dispatch(getTickets())
+        dispatch(getTickets())
         return () => {
           if (success) dispatch(reset())
         }

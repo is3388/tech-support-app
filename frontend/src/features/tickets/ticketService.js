@@ -34,5 +34,17 @@ const getTicket = async(ticketId, token) => {
     return response.data
 }
 
-const ticketService = {createTicket, getTickets, getTicket}
+const closeTicket = async(ticketId, token) => {
+    // send token must be sent in headers - Authorization field
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+    const response = await axios.put(base_URL + ticketId, {status: 'closed'}, config)
+    return response.data
+}
+
+
+const ticketService = {createTicket, getTickets, getTicket, closeTicket}
 export default ticketService

@@ -30,6 +30,10 @@ const getTickets = asyncHandler(async (req, res) => {
     // since go through auth function, we can access req.user
     
     const tickets = await Ticket.find({user: req.user.id})
+    if (!tickets) {
+        res.status(404)
+        throw new Error('No tickets found')
+    }
     res.status(200).json(tickets)
 })
 

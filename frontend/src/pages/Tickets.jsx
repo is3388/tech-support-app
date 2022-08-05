@@ -11,13 +11,25 @@ function Tickets () {
     const {tickets, loading, success} = useSelector((state) => state.ticket)
     const dispatch = useDispatch()
 
-    useEffect(() => {
+    /*useEffect(() => {
         
         if (!success) dispatch(getTickets())
         return () => {
           if (success) dispatch(reset())
         }
+      }, [dispatch, success])*/
+
+      useEffect(() => {
+        return () => {
+          if (success) {
+            dispatch(reset())
+          }
+        }
       }, [dispatch, success])
+    
+      useEffect(() => {
+        dispatch(getTickets())
+      }, [dispatch])
 
     return loading ? <Spinner /> 
                    : (

@@ -41,7 +41,7 @@ const closeTicket = async(ticketId, token) => {
             Authorization: `Bearer ${token}`
         }
     }
-    const response = await axios.put(base_URL + ticketId, {status: 'closed'}, config)
+    const response = await axios.patch(base_URL + ticketId, {status: 'closed'}, config)
     return response.data
 }
 

@@ -64,7 +64,7 @@ export const closeTicket = createAsyncThunk(
     async(ticketId, thunkAPI) => {
         try {
                 const token = thunkAPI.getState().auth.user.token
-                return await ticketService.getTicket(ticketId, token)
+                return await ticketService.closeTicket(ticketId, token)
         }
         catch (error) {
             const message = (error.response && error.response.data && error.response.data.message) ||

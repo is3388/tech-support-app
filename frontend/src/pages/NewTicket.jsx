@@ -21,12 +21,12 @@ function NewTicket () {
         if (error) {
             toast.error(message)
         }
-        if (success && user) {
+        if (success) {
             dispatch(reset())
             navigate('/tickets')
         }
         dispatch(reset())
-    }, [dispatch, navigate, error, success, message, user])
+    }, [dispatch, navigate, error, success, message])
 
     const onSubmit = (e) => {
         e.preventDefault()

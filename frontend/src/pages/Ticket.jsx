@@ -4,7 +4,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import Modal from 'react-modal'
 import {FaPlus} from 'react-icons/fa'
 import {getTicket, closeTicket} from '../features/tickets/ticketSlice'
-import {getNotes} from '../features/notes/noteSlice'
+import {getNotes, createNote} from '../features/notes/noteSlice'
 import BackButton from '../components/BackButton'
 import Spinner from '../components/Spinner'
 import NoteItem from '../components/NoteItem'
@@ -57,7 +57,7 @@ function Ticket () {
 
     const onNoteSubmit = (e) => {
         e.preventDefault()
-        console.log('submit')
+        dispatch(createNote({noteText, ticketId}))
         closeModal()
     }
     

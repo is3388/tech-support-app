@@ -9,6 +9,22 @@ const initialState = {
     message: ''
 }
 
+export const createNote = createAsyncThunk(
+    'notes/create',
+    async({noteText, ticketId}, thunkAPI) => {
+        try {
+                const token = thunkAPI.getState().auth.user.token
+                return await noteService.createNote(noteText, ticketId, token)
+        }
+        catch (error) {
+            const message = (error.response && error.response.data && error.response.data.message) ||
+            error.message ||
+            error.toString()
+            return thunkAPI.rejectWithValue(message)
+        }
+    }
+)
+
 export const getNotes = createAsyncThunk(
     'notes/getAll',
     async(ticketId, thunkAPI) => {
@@ -42,6 +58,19 @@ export const noteSlice = createSlice({
             state.notes = action.payload
         })
         .addCase(getNotes.rejected, (state, action) => {
+            state.loading = false
+            state.error = true
+            state.message = action.payload
+        })
+        .addCase(createNote.pending, (state) => {
+            state.loading = true
+        })
+        .addCase(createNote.fulfilled, (state, action) => {
+            state.loading = false
+            state.success = true
+            state.notes.push(action.payload) // Redux toolkit allows you to push it, so that no need to reload in UI
+        })
+        .addCase(createNote.rejected, (state, action) => {
             state.loading = false
             state.error = true
             state.message = action.payload

@@ -2,6 +2,19 @@ import axios from "axios"
 
 const base_URL = '/api/tickets/'
 
+const createNote = async(noteText, ticketId, token) => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+    const response = await axios.post(base_URL + ticketId + '/notes' , 
+        { text: noteText
+        }, 
+        config)
+    return response.data 
+}
+
 const getNotes = async(ticketId, token) => {
     // send token must be sent in headers - Authorization field
     const config = {
@@ -13,5 +26,5 @@ const getNotes = async(ticketId, token) => {
     return response.data
 }
 
-const noteService = {getNotes}
+const noteService = {getNotes, createNote}
 export default noteService

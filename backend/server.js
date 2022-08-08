@@ -29,9 +29,9 @@ const __dirname = path.resolve()
 
 if (process.env.NODE_ENV === 'production') {
 // set a static path and build folder that contains static assets
-    app.use(express.static(path.join(__dirname, '../frontend/build')))
+    app.use(express.static(path.join(__dirname, '/frontend/build')))
     app.get('*', (_, res) => { // load the index.html in build folder
-        res.sendFile(path.join(__dirname, '../frontend/build/index.html'))
+        res.sendFile(path.resolve(__dirname, '/frontend/build/index.html'))
 }) 
 }
 else {

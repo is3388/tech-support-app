@@ -25,6 +25,8 @@ app.use('/api/users', userRouter)
 
 app.use('/api/tickets', ticketRouter)
 
+const __dirname = path.resolve()
+
 if (process.env.NODE_ENV === 'production') {
 // set a static path and build folder that contains static assets
     app.use(express.static(path.join(__dirname, '../frontend/build')))

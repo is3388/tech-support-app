@@ -70,7 +70,7 @@ function Ticket () {
     return (
             <div className='ticket-page'>
                 <header className='ticket-header'>
-                    <BackButton url='/tickets' />
+                    <BackButton />
                     
                 
                 <h3>

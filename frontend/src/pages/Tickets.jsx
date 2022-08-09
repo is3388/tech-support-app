@@ -34,7 +34,7 @@ function Tickets () {
     return loading ? <Spinner /> 
                    : (
                     <>
-                        <BackButton url='/' />
+                        <BackButton />
                         <h2>Tickets for {user.name}</h2>
                             <div className='tickets'>
                                 <div className='ticket-headings'>

@@ -35,7 +35,7 @@ function NewTicket () {
     }
     return loading ? <Spinner /> : (
         <>
-        <BackButton url='/' />
+        <BackButton />
         <section className='heading'>
             <h3>Create New Ticket</h3>
             <p>Fill out the form below</p>
@@ -73,8 +73,8 @@ function NewTicket () {
                     <option value='iPad'>iPad</option>
                     <option value='iPhone'>iPhone</option>
                     <option value='iMac'>iMac</option>
-                    <option value='Mac book'>Macbook</option>
-                    <option value='Mac book Pro'>Macbook Pro</option>
+                    <option value='Macbook'>Macbook</option>
+                    <option value='MacbookPro'>Macbook Pro</option>
                 </select>
             </div>
             <div className='form-group'>

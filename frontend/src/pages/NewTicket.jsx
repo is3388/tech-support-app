@@ -35,7 +35,7 @@ function NewTicket () {
     }
     return loading ? <Spinner /> : (
         <>
-        <BackButton />
+        <BackButton url='/' />
         <section className='heading'>
             <h3>Create New Ticket</h3>
             <p>Fill out the form below</p>
